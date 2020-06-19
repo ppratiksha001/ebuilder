@@ -1,0 +1,11 @@
+{
+  "main" : "ebuilder-sys-api.raml",
+  "name" : "ebuilder-sys-api",
+  "classifier" : "raml",
+  "tags" : [ ],
+  "groupId" : "d43264ef-a393-4cb8-b279-8e085013264b",
+  "assetId" : "ebuilder-sys-api",
+  "version" : "1.0.0",
+  "apiVersion" : "",
+  "dependencies" : [ ]
+}

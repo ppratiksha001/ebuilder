@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd ">
+    <http:listener-config name="ebuilder-sys-api-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="8081" />
+    </http:listener-config>
+    <apikit:config name="ebuilder-sys-api-config" api="ebuilder-sys-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <flow name="get:\(path)\(id)\(field):ebuilder-sys-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="12fdd02e-ede5-4d4a-93a2-f022ce83f584" name="get:\someresource\subresource1:api-impl"/>
+    </flow>
+    <flow name="get:\(path):ebuilder-sys-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="f37689c5-6ad7-4171-bc3a-32fb1465dc98" name="get:\someresource\subresource1:api-impl"/>
+    </flow>
+    <flow name="post:\token:ebuilder-sys-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="3a02eaf2-8ff9-433d-92d7-6ac3f7a54f99" name="get:\someresource\subresource1:api-impl"/>
+    </flow>
+</mule>

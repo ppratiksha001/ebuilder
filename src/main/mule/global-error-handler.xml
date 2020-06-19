@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<error-handler name="global-error-handler" doc:id="ee382b2f-bdf9-4050-b687-1e538104de07">
+		<on-error-propagate type="APIKIT:NOT_FOUND">
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Resource not found"}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus">404</ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="3b7b9a26-29c7-4572-bcf3-64bb3e64799c" type="ANY">
+				<logger level="INFO" doc:name="Log Exception" doc:id="08688e6d-51b1-4365-8101-b2c0951fd30a" message="An error has occured" />
+				<set-variable value="#[attributes.httpStatus]" doc:name="Set Status" doc:id="8fcc4321-7259-4786-ba37-e508864ef5e4" variableName="httpStatus" />
+				<logger level="INFO" doc:name="Log End with Exception" doc:id="5d94f25d-7f70-4923-bf1c-42605e1c51ec" message="Finished with Error" />
+			
+</on-error-propagate>
+	
+</error-handler>
+	
+</mule>

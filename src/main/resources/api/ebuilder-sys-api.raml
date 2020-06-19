@@ -1,0 +1,21 @@
+#%RAML 1.0
+title: ebuilder-sys-api
+description: Its system api to call ebuilder web service.
+baseUri:
+mediaType: 
+  - application/json
+version: 1.0.0
+/token:
+  post:
+    description: Generate the token for accessing ebuilder service.
+    headers:
+      username: string
+      password: string
+/{path}:
+  get:
+    description: calls different entity for the ebuilder
+  
+  /{id}/{field}:
+    get:
+      description: Call child API
+    

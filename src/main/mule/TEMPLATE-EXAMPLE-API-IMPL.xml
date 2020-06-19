@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<flow name="get:\someresource\subresource1:api-impl" doc:id="05e284d3-45ec-4d1a-8ee2-dfa23f505d85" >
+		<logger level="INFO" doc:name="Log start" doc:id="3b90be57-72b7-469b-bfe3-a644a66c95ee" message="Start"/>
+		<set-payload value="#['{&quot;key&quot;:&quot;input-date-value&quot;}']" doc:name="MOCK: Input Request" doc:id="01fe290d-72af-4070-8a01-18168b6b1902" />
+		<logger level="INFO" doc:name="Log Before Calling API/Backend" doc:id="2e792e33-93e2-489a-bdd3-f2023ab04ac1" message="Before Calling API or Backend"/>
+		<set-payload value="#['{&quot;key&quot;:&quot;from backend&quot;}']" doc:name="MOCK: Backend" doc:id="99f104ab-e5bb-4537-b3a1-576282d232fb" />
+		<logger level="INFO" doc:name="Log After Calling API/Backend" doc:id="a40bcac3-9f2b-4de1-8dd8-9c4b30abb770" message="After Calling API or Backend"/>
+		<logger level="INFO" doc:name="Log Before Transform" doc:id="42a68927-d886-469b-8ed5-a6ab3adab3f2" message="Before Interpretting response"/>
+		<set-payload value="#['{&quot;key&quot;:&quot;some transformation&quot;}']" doc:name="MOCK: Transform" doc:id="5f35c544-eabd-40f4-801c-701a7f246d11" />
+		<logger level="INFO" doc:name="Log After Transform" doc:id="9ad93e0e-854f-4103-b75e-5da34e55de0b" message="After Interpreting Response"/>
+		<logger level="INFO" doc:name="Log End" doc:id="f95233aa-6621-4334-874c-6b03b4582043" message="End"/>
+	
+</flow>
+</mule>

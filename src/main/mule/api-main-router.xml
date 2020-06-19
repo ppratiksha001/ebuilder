@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd">
+	 <flow name="api-template-api-main">
+        <http:listener doc:name="Listener" doc:id="b18bc187-ca1c-4ee6-9644-9eec89ee9701" config-ref="api-template-api-httpListenerConfig" path="${http.listener.basePath}">
+			<http:response statusCode="#[vars.httpStatus default 200]" >
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:response>
+			<http:error-response statusCode="#[vars.httpStatus default 500]" >
+				<http:body ><![CDATA[#[payload]]]></http:body>
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:error-response>
+		</http:listener>
+		<ee:transform doc:name="Set x-root-correlation-id" doc:id="c6cc2885-41b2-43e1-b2a7-dd626cac56ab" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+attributes.headers.'x-root-correlation-id' default correlationId]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<apikit:router doc:name="APIkit Router" doc:id="2e539237-e249-4fab-be97-d600cd069ca8" config-ref="api-template-api-config"/>
+        
+    
+</flow>
+    <flow name="api-template-api-console">
+        <http:listener doc:name="Listener" doc:id="27fd370e-f3ac-4e9e-a521-75e037d8b2d6" config-ref="api-template-api-httpListenerConfig" path="/console/*">
+                    <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body>#[payload]</http:body>
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:error-response>
+        </http:listener>
+		<apikit:console doc:name="APIkit Console" doc:id="7b9ee9a9-1363-414b-8d15-4440eb2361fd" config-ref="api-template-api-config"/>
+    
+</flow>
+</mule>

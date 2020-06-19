@@ -1,0 +1,17 @@
+
+http:
+  listener:
+    host: ""
+    port: ""
+    basePath: v1/api/*
+
+  requestor:
+    host: ""
+    port: ""
+    basePath: ""
+    username: ""
+    resourceUrl: ""
+  
+#Autodiscovery API ID
+api:
+  id: "111111"

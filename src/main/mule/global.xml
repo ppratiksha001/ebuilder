@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd"><http:listener-config name="api-template-api-httpListenerConfig">
+        <http:listener-connection host="${http.listener.host}" port="${http.listener.port}" />
+    </http:listener-config>
+	<api-gateway:autodiscovery apiId="${api.id}" doc:name="API Autodiscovery" doc:id="f5c64505-5efe-4da3-b1f3-1d88b38a6e89" flowRef="api-template-api-main" ignoreBasePath="true"/>
+	<configuration doc:name="Configuration" doc:id="3661a5b0-4fb2-490c-8292-ca57f400f095" defaultErrorHandler-ref="global-error-handler" />
+	<global-property doc:name="Global Property" doc:id="4a68e0f6-1de0-4305-b617-e9910ffd2e3f" name="env" value="dev" />
+	<configuration-properties doc:name="Configuration properties" doc:id="9d9812b3-9fc6-4813-a208-fc7bd5705238" file="config-${env}.yaml" />
+	<apikit:config outboundHeadersMapName="outboundHeadersMapName" httpStatusVarName="httpStatus" doc:name="Router" doc:id="5582936c-1a58-4609-8e72-50a5bf4be90a" name="api-template-api-config" />
+    
+
+</mule>
